@@ -1,0 +1,156 @@
+
+Transcript der mp3 Dateien:
+
+Sprachdateien wurden mithilfe von "https://notevibes.com/de/" erstellt.
+
+
+
+
+
+
+Anleitung: 
+
+<speak><emphasis level="strong"> Ziel des Spiels ist es, eine Farbkombination aus vier von sechs Farben zu erraten, die sich der TipToi Stift ausgedacht hat. <break strength="stong"/> Und so funktioniert es: Du malst dir mit verschieden Farbigen Stiften eine Farbkombination auf ein Blatt Papier, von der du Denkst, dass es die Richtige Kombination ist. Diese Farbkombination überträgst du dann von links nach rechts durch berühren der entsprechenden Farbringe an den TipToi. Anschließend berührst du das OK Symbol. <break strength="stong"/>Du bekommst dann zwei verschiedene Hinweise. Zum einen wie viele Farben an der richtigen Position sind, und zum anderen wie viele Farben du richtig hast,wobei die Position nicht stimmt. Diese Hinweise malst du dir neben deine Farbkombination auf das Papier. Die Spielrunde ist nun vorbei, und du malst dir mit Hilfe der Informationen eine neue Farbkombination auf das Papier. Hast du die Farbkombination innerhalb der 10 Runden erraten, hast du das Spiel gewonnen. <break strength="stong"/>
+Es gibt zwei Spielmodi. Im Modus eins ist jede Farbe nur einmal erlaubt. Im Spielmodus zwei kann dieselbe Farbe mehrmals vorkommen.
+<break time="500ms"/>
+<prosody rate="slow">Jetzt wünsche ich dir viel Spass mit dem TipMaster Spiel.</prosody></emphasis></speak>
+
+
+
+
+Auswertung:
+Ich ermittle nun wie viele Farben du richtig hat. Warte bitte einen Augenblick.
+
+Auswertung1:
+Drücke dieses Symbol während des Spiels, nachdem du deine Farbkombination eingegeben hast, und ich beginne mit der Auswertung.
+
+
+
+Blau:
+blau
+
+Braun:
+braun
+
+Das_war_mein_Code:
+Ich verrate dir jetzt noch meine Farbkombination. Anschließend kannst du das Spiel neu beginnen.
+
+Eingabe:
+Wähle nun mit dem Stift vier Farben aus.
+
+Gelb:
+gelb
+
+gewonnen:
+Herzlichen Glückwunsch du hast gewonnen.
+
+Gruen:
+Grün
+
+
+
+hallo:
+Herzlich willkommen beim TipMaster Spiel. Drücke mit dem Stift auf das Buchsymbol, und ich erkläre dir wie das Spiel funktioniert.
+
+Modus_wählen:
+Bevor du das Spiel starten kannst wähle zuerst einen Spielmodus aus. Berühre mit dem Stift das M Symbol
+
+Modus1:
+Modus eins.
+
+Modus2:
+Modus zwei.
+
+nächste_Runde:
+Die nächste Runde beginnt.
+
+Orange:
+Orange
+
+Rot:
+Rot
+
+abgebrochen.
+Du hast das Spiel abgebrochen.
+
+gestartet:
+Das Spiel ist schon gestartet.
+
+gestartet_Modus:
+Um den Spielmodus zu ändern, musst du zunächst das Spiel abbrechen.
+
+
+Schwarz:
+Schwarz
+
+Schwarz0:
+Du hast keine Farbe an der richtigen Position.
+
+Schwarz1:
+Du hast eine Farbe an der richtigen Position.
+
+Schwarz2:
+Du hast zwei Farben an der richtigen Position.
+
+
+Schwarz3:
+Du hast drei Farben an der richtigen Position.
+
+
+spiel_beginnt:
+Ok. Das Spiel beginnt. Ich denke mir nun eine Farbkombination aus. die du anschließend erraten musst. Dies dauert einen Moment.
+
+
+Spielende:
+Das war die letzte Runde. Du hast die Kombination leider nicht erraten.
+
+Startespiel:
+Du musst zuerst das Spiel starten.
+
+Weiss:
+Weiss
+
+Weiss0:
+Du hast keine Farbe richtig an der falschen Position.
+
+
+Weiss1:
+Du hast eine Farbe richtig, allerdings an der falschen Position.
+
+
+Weiss2:
+Du hast zwei Farben richtig, allerdings an der falschen Position.
+Weiss3:
+Du hast drei Farben richtig, allerdings an der falschen Position.
+
+Weiss4:
+Du hast vier Farben richtig, allerdings an der falschen Position.
+
+Jetzt_du:
+
+<speak> <emphasis level="strong">Ich habe mir eine Farbkombination ausgedacht. Jetzt bist du an der Reihe. Gib mit dem Stift eine Farbkombination ein.</emphasis> <speak>
+
+OK:
+Berühre das OK Symbol, dann beginne ich mit der Auswertung.
+
+erkläre_Farbringe:
+
+Dies ist eine von sechs Farben. Während des Spiels erstellst du dir, durch berühren der einzelnen Farben, mit dem Stift eine Farbkombination.
+
+erkläre_Modus:
+
+Durch berühren dieses Symbols wählst du einen Spielmodus aus. Es gibt Modus eins und Modus zwei. Tippe diese Symbol nochmal, um einen Modus zu wählen.
+
+
+noch_zwei_Runden:
+
+Du hast noch zwei Runden.
+
+letzte Runde:
+
+Jetzt kommt die letzte Runde.
+
+
+
+
+
