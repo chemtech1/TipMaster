@@ -1,0 +1,326 @@
+#TipMaster
+product-id: 939
+
+media-path: "audio/%s"
+
+init: $maxRunden:=10 $zaehler:=1
+
+
+welcome: ping,hallo
+ # gelb =1     2663
+ # gruen=2     2664 
+ # rot = 3     2665
+ # blau =4     2666
+ # bruan =5    2667
+ # schwarz = 6 2047
+
+ 
+# Übersicht der Register:
+# $Modus :                  Auswahl Spielmodi    Werte: 0,1,2
+# $Pos1 bis $Pos4:          hier wird der Code gespeichert, der geraten werden muss
+# $gelb bis $fschwarz:      für Modus=1 , wird auf 1 gesetzt sobald entsprechende Farbe gewählt wurde, um Zweitauswahl zu verhindern
+# $zaehler:                 zählt wie viele Farben in einer Runde schon gewählt wurden  Werte 1 bis 4
+# $code:                    die gewählten Farben des Spielers werden als 4stellige Zahl gespeichert
+# $Farbe1 bis $Farbe4:      jede Stelle des 4stelligen Codes wird auf eines der Register gelegt
+# $Treffer1 bis $Treffer4:  wird bei der Auswertung auf 1 gesetzt, sobald eine Übereinstimmung vorliegt, um Doppelauswertung zu verhindern
+# $schwarz                  Zählt alle richtigen Farben auf richtiger Position 4x schwarz = gewonnen
+# $weiss                    Zählt alle richtigen Farben auf falscher Position
+# schwarzw und$weissw       Werte von $schwarz und $weiss wird übergeben für Wiederholungsansage
+
+# Runde                     Zähler für die einzelnen Runden
+# maxRunden                 Spielende nach 10 Runden
+# $p                        um Audio abbrechen zu verhindern Wert 0 und 1
+# $gestartet                Wird auf 1 gesetzt sobald Spiel gestartet wurde
+
+ 
+ 
+
+scripts:
+
+ #Modus 1 4 verschiedene Farben
+ Modus:
+ - $p==1?
+ -  $Modus==0? $gestartet==0? $Modus:=2 J(_p0) P(erkläre_Modus)    #Ansage welcher Modus, springt zur Farbcodeerstellung Modus 1
+ -  $Modus==1? $gestartet==0? $Modus:=2 J(_p0) P(Modus2) 
+ -  $Modus==2? $gestartet==0? $Modus:=1 J(_p0) P(Modus1)
+ -  $Modus!=0? $gestartet==1? P(gestartet_Modus)
+ 
+ play:
+ - $p==1?
+ - $Modus==0?  J(_p0) P(Modus_wählen)
+ - $Modus!=0? $gestartet==0? $gestartet:=1 P(Spiel_beginnt_Sound) P(spiel_beginnt) J(M1Farbe1)
+ - $Modus!=0? $gestartet==1? P(gestartet)
+ 
+
+ 
+ #++++++++++++++++++++++++++++++++++++++++Farbcodeerstellung Modus 1+++++++++++++++++++++++++++++++++++++++++++
+ M1Farbe1:  #1. Farbe
+ - T($r, 65535) $rnd+=$r $rnd*=25173 $rnd+=13849 $Pos1:=$rnd $Pos1%=6 $Pos1+=1 J(M1Farbe2) P(nichts)
+ 
+ M1Farbe2: # 2. Farbe
+ - T($r, 65535) $rnd+=$r $rnd*=25173 $rnd+=13849 $Pos2:=$rnd $Pos2%=6 $Pos2+=1 J(M1Farbe3) P(nichts)
+ M1Farbe3: #3. Farbe
+ - $Modus==1? $Pos2 == $Pos1? J(M1Farbe2) P(nichts)  #pruefe ob Zahl doppelt
+ - T($r, 65535) $rnd+=$r $rnd*=25173 $rnd+=13849 $Pos3:=$rnd $Pos3%=6 $Pos3+=1 J(M1Farbe4) P(nichts)
+    
+ M1Farbe4: #4. Farbe
+ - $Modus==1? $Pos3 == $Pos1? J(M1Farbe3) P(nichts) #pruefe ob Zahl doppelt
+ - $Modus==1? $Pos3 == $Pos2? J(M1Farbe3) P(nichts) #pruefe ob Zahl doppelt
+ - T($r, 65535) $rnd+=$r $rnd*=25173 $rnd+=13849 $Pos4:=$rnd $Pos4%=6 $Pos4+=1 J(M1pruefe4) P(nichts)
+ 
+ M1pruefe4:
+ - $Modus==1? $Pos4 == $Pos1? J(M1Farbe4) P(nichts) #pruefe ob Zahl doppelt
+ - $Modus==1? $Pos4 == $Pos2? J(M1Farbe4) P(nichts)  #pruefe ob Zahl doppelt
+ - $Modus==1? $Pos4 == $Pos3? J(M1Farbe4) P(nichts) #pruefe ob Zahl doppelt
+ - P(jetzt_du) #springe zum nächsten Spielabschnitt
+ #++++++++++++++++++++++++++++++++++++++++Ende Farbcodeerstellung Modus 1 +++++++++++++++++++++++++++++++++++++
+ 
+ 
+ 
+ 
+ gelb:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $gelb!=1? $zaehler <=4? $gelb:=1 $code*=10 $code+=1  $zaehler+=1 J(_p0) P(Gelb)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=1  $zaehler+=1 J(_p0) P(Gelb)
+ -  $zaehler > 4? J(_p0) P(OK)
+ gruen:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $gruen!=1? $zaehler <=4? $gruen:=1 $code*=10 $code+=2 $zaehler+=1 J(_p0) P(Gruen)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=2 $zaehler+=1 J(_p0) P(Gruen)
+ -  $zaehler > 4? J(_p0) P(OK)
+ rot:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $rot!=1? $zaehler <=4? $rot:=1 $code*=10 $code+=3 $zaehler+=1 J(_p0) P(Rot)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=3 $zaehler+=1 J(_p0) P(Rot)
+ -  $zaehler > 4? J(_p0) P(OK)
+ blau:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $blau!=1? $zaehler <=4? $blau:=1 $code*=10 $code+=4 $zaehler+=1 J(_p0) P(Blau)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=4 $zaehler+=1 J(_p0) P(Blau)
+ -  $zaehler > 4? J(_p0) P(OK)
+ braun:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $braun!=1? $zaehler <=4? $braun:=1 $code*=10 $code+=5 $zaehler+=1 J(_p0) P(Braun)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=5 $zaehler+=1 J(_p0) P(Braun)
+ -  $zaehler > 4? J(_p0) P(OK)
+ schwarz:
+ -  $p==1?
+ -  $Modus==0? J(_p0) P(erkläre_Farbringe)
+ -  $Modus!=0? $gestartet==0?J(_p0) P(erkläre_Farbringe)
+ -  $Modus==1? $fschwarz!=1? $zaehler <=4? $fschwarz:=1 $code*=10 $code+=6 $zaehler+=1 J(_p0) P(Schwarz)
+ -  $Modus==2? $zaehler <=4? $p:=1 $code*=10 $code+=6 $zaehler+=1 J(_p0) P(Schwarz)
+ -  $zaehler > 4? J(_p0) P(OK)
+
+ 
+ _p0:
+  - $p:=0
+  
+ 
+ auswertung:
+ - $p==1?
+ - $gestartet==0? J(_p0) P(Auswertung1)
+ - $gestartet==1? $zaehler > 4? J(ersteFarbe) P(Auswertung) 
+ - $gestartet==1? $zaehler <4? J(_p0) P(Auswertung2)
+ 
+ 
+
+ 
+ 
+ ersteFarbe:
+ - $Farbe1:=$code $Farbe1/=1000 J(zweiteFarbe) P(nichts)
+ 
+ zweiteFarbe:
+ - $Farbe2:=$code $Farbe2/=100 $Farbe2%=10 J(dritteFarbe) P(nichts)
+ 
+ dritteFarbe: 
+ - $Farbe3:=$code $Farbe3/=10 $Farbe3%=10 J(vierteFarbe) P(nichts)
+
+ 
+ 
+ vierteFarbe:
+ - $Farbe4:=$code $Farbe4/=1 $Farbe4%=10 J(pruefeersteFarbeSchwarz) P(nichts)
+ 
+ 
+ 
+ pruefeersteFarbeSchwarz:
+ - $Treffer1!=1? $Farbe1==$Pos1?  $Treffer1:=1 $schwarz+=1  J(pruefezweiteFarbeSchwarz) P(nichts)
+ - J(pruefezweiteFarbeSchwarz) P(nichts)
+ 
+ 
+
+ pruefezweiteFarbeSchwarz:
+ 
+ - $Treffer2!=1? $Farbe2==$Pos2? $Treffer2:=1 $schwarz+=1 J(pruefedritteFarbeSchwarz) P(nichts)
+ - J(pruefedritteFarbeSchwarz) P(nichts)
+ 
+ pruefedritteFarbeSchwarz:
+ 
+ - $Treffer3!=1? $Farbe3==$Pos3? $Treffer3:=1 $schwarz+=1 J(pruefevierteFarbeSchwarz) P(nichts)
+ - J(pruefevierteFarbeSchwarz) P(nichts)
+ 
+ 
+ 
+ 
+ pruefevierteFarbeSchwarz:
+ - $Treffer4!=1? $Farbe4==$Pos4? $Treffer4:=1 $schwarz+=1 J(pruefeersteFarbeWeiss) P(nichts)
+ - J(pruefeersteFarbeWeiss) P(nichts)
+
+ pruefeersteFarbeWeiss:
+ - $Treffer2!=1? $Farbe1==$Pos2? $Treffer2:=1 $weiss+=1 J(pruefezweiteFarbeWeiss) P(nichts)
+ - $Treffer3!=1? $Farbe1==$Pos3? $Treffer3:=1 $weiss+=1 J(pruefezweiteFarbeWeiss) P(nichts)
+ - $Treffer4!=1? $Farbe1==$Pos4? $Treffer4:=1 $weiss+=1 J(pruefezweiteFarbeWeiss) P(nichts)
+ - J(pruefezweiteFarbeWeiss) P(nichts)
+ pruefezweiteFarbeWeiss:
+ - $Treffer1!=1? $Farbe2==$Pos1? $Treffer1:=1 $weiss+=1 J(prueferdritteFarbeWeiss) P(nichts)
+ - $Treffer3!=1? $Farbe2==$Pos3? $Treffer3:=1 $weiss+=1 J(prueferdritteFarbeWeiss) P(nichts)
+ - $Treffer4!=1? $Farbe2==$Pos4? $Treffer4:=1 $weiss+=1 J(prueferdritteFarbeWeiss) P(nichts)
+ - J(prueferdritteFarbeWeiss) P(nichts)
+ prueferdritteFarbeWeiss:
+ - $Treffer1!=1? $Farbe3==$Pos1? $Treffer1:=1 $weiss+=1 J(pruefevierteFarbeWeiss) P(nichts)
+ - $Treffer2!=1? $Farbe3==$Pos2? $Treffer2:=1 $weiss+=1 J(pruefevierteFarbeWeiss) P(nichts)
+ - $Treffer4!=1? $Farbe3==$Pos4? $Treffer4:=1 $weiss+=1 J(pruefevierteFarbeWeiss) P(nichts)
+ - J(pruefevierteFarbeWeiss) P(nichts)
+ pruefevierteFarbeWeiss:
+ - $Treffer1!=1? $Farbe4==$Pos1? $Treffer1:=1 $weiss+=1 J(ansageSchwarz) P(nichts)
+ - $Treffer2!=1? $Farbe4==$Pos2? $Treffer2:=1 $weiss+=1 J(ansageSchwarz) P(nichts)
+ - $Treffer3!=1? $Farbe4==$Pos3? $Treffer3:=1 $weiss+=1 J(ansageSchwarz) P(nichts)
+ - J(ansageSchwarz) P(nichts)
+ 
+ ansageSchwarz:
+ 
+ - $schwarz==4? P(gewonnen_jingle, gewonnen_jingle2) P(gewonnen) J(Spielende)
+ - $schwarz==0? $schwarzw:=$schwarz J(ansageWeiss) P(Schwarz0) 
+ - $schwarz==1? $schwarzw:=$schwarz J(ansageWeiss) P(Schwarz1) 
+ - $schwarz==2? $schwarzw:=$schwarz J(ansageWeiss) P(Schwarz2) 
+ - $schwarz==3? $schwarzw:=$schwarz J(ansageWeiss) P(Schwarz3) 
+ 
+  
+ ansageWeiss:
+ 
+ - $weiss==0? $weissw:=$weiss J(neueRunde) P(Weiss0) 
+ - $weiss==1? $weissw:=$weiss J(neueRunde) P(Weiss1) 
+ - $weiss==2? $weissw:=$weiss J(neueRunde) P(Weiss2) 
+ - $weiss==3? $weissw:=$weiss J(neueRunde) P(Weiss3) 
+ - $weiss==4? $weissw:=$weiss J(neueRunde) P(Weiss4)
+ 
+ 
+ neueRunde:
+ - $p==1?
+ - $Runde == $maxRunden? J(Spielende) P(Spielende) 
+ - $Runde==8? $Runde+=1 J(setzeRegister1) P(noch_zwei_Runden)
+ - $Runde==9? $Runde+=1 J(setzeRegister1) P(letzte_Runde)
+ - $Runde+=1 J(setzeRegister1) P(nächste_Runde) 
+ 
+ 
+
+ 
+ 
+ 
+ Spielende:
+ 
+ - $Runde==$maxRunden? $Runde:=0 $gestartet:=0 J(Codeabspielen) P(das_war_mein_Code)
+ - $schwarz==4? $gestartet:=0  $Runde:=0 J(setzeRegister1) P(nichts)
+ - $Runde:=0 $gestartet:=0 J(Codeabspielen) P(das_war_mein_Code)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ setzeRegister1:
+ 
+ - $schwarz:=0 $weiss:=0 $Treffer1:=0 $Treffer2:=0 $Treffer3:=0 $Treffer4:=0 J(setzeRegister2) P(nichts)
+ 
+ setzeRegister2:
+ - $gelb:=0 $gruen:=0 $rot:=0 $blau:=0 $braun:=0 $fschwarz:=0 $zaehler:=1 $code:=0 P(nichts)
+ 
+ 
+ 
+ 
+ 
+
+ abbrechen:
+ - $p==1?
+ - $gestartet==0? J(_p0) P(abbrechen1)
+ - $gestartet==1? P(abbrechen) J(Spielende)
+ 
+ Anleitung:
+ - $p==1?
+ -  P(Anleitung)
+ 
+ 
+ Eingabe_wiederholen:
+ - $p==1?
+ - $gestartet==0? J(_p0) P(neue_Eingabe1)
+ - $gestartet==1? J(setzeRegister2) P(neue_Eingabe)
+ 
+ 
+ 
+ 
+ Codeabspielen:
+ 
+ - $Pos1==1?  J(CodeabspielenPos2) P(Gelb)
+ - $Pos1==2?  J(CodeabspielenPos2) P(Gruen)
+ - $Pos1==3?  J(CodeabspielenPos2) P(Rot)
+ - $Pos1==4?  J(CodeabspielenPos2) P(Blau)
+ - $Pos1==5?  J(CodeabspielenPos2) P(Braun)
+ - $Pos1==6?  J(CodeabspielenPos2) P(Schwarz)
+ 
+ CodeabspielenPos2:
+ 
+ - $Pos2==1?  J(CodeabspielenPos3) P(Gelb)
+ - $Pos2==2?  J(CodeabspielenPos3) P(Gruen)
+ - $Pos2==3?  J(CodeabspielenPos3) P(Rot)
+ - $Pos2==4?  J(CodeabspielenPos3) P(Blau)
+ - $Pos2==5?  J(CodeabspielenPos3) P(Braun)
+ - $Pos2==6?  J(CodeabspielenPos3) P(Schwarz)
+ 
+ 
+ CodeabspielenPos3:
+ 
+ - $Pos3==1?  J(CodeabspielenPos4) P(Gelb)
+ - $Pos3==2?  J(CodeabspielenPos4) P(Gruen)
+ - $Pos3==3?  J(CodeabspielenPos4) P(Rot)
+ - $Pos3==4?  J(CodeabspielenPos4) P(Blau)
+ - $Pos3==5?  J(CodeabspielenPos4) P(Braun)
+ - $Pos3==6?  J(CodeabspielenPos4) P(Schwarz)
+ 
+ CodeabspielenPos4:
+ 
+ - $Pos4==1? J(setzeRegister1) P(Gelb)
+ - $Pos4==2? J(setzeRegister1) P(Gruen)
+ - $Pos4==3? J(setzeRegister1) P(Rot)
+ - $Pos4==4? J(setzeRegister1) P(Blau)
+ - $Pos4==5? J(setzeRegister1) P(Braun) 
+ - $Pos4==6? J(setzeRegister1) P(Schwarz)
+ 
+ 
+ Wiederholung:
+ -  $gestartet==0? P(Ansage_Wiederholung)
+ -  $schwarzw==0?  J(Wiederholeweiss) P(Schwarz0)
+ -  $schwarzw==1?  J(Wiederholeweiss) P(Schwarz1)
+ -  $schwarzw==2?  J(Wiederholeweiss) P(Schwarz2)
+ -  $schwarzw==3?  J(Wiederholeweiss) P(Schwarz3)
+ 
+ Wiederholeweiss:
+ -  $weissw==0? P(Weiss0) 
+ -  $weissw==1? P(Weiss1)
+ -  $weissw==2? P(Weiss2)
+ -  $weissw==3? P(Weiss3)
+ -  $weissw==4? P(Weiss4)
+ 
+ 
+

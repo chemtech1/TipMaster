@@ -1,0 +1,53 @@
+# This file contains a mapping from script names to oid codes.
+# This way the existing scripts are always assigned to the the
+# same codes, even if you add further scripts.
+# 
+# You can copy the contents of this file into the main .yaml file,
+# if you want to have both together.
+# 
+# If you delete this file, the next run of "ttool assemble" might
+# use different codes for your scripts, and you might have to re-
+# create the images for your product.
+scriptcodes:
+  play: 3946
+  M1Farbe2: 5285
+  ersteFarbe: 5292
+  Wiederholung: 5320
+  auswertung: 5291
+  pruefedritteFarbeSchwarz: 5301
+  M1Farbe4: 5288
+  pruefezweiteFarbeSchwarz: 5305
+  M1Farbe3: 5286
+  Modus: 3947
+  prueferdritteFarbeWeiss: 5298
+  pruefezweiteFarbeWeiss: 5306
+  CodeabspielenPos2: 5308
+  neueRunde: 5295
+  rot: 2665
+  M1pruefe4: 5289
+  CodeabspielenPos3: 5312
+  Eingabe_wiederholen: 5290
+  pruefevierteFarbeSchwarz: 5304
+  gelb: 2663
+  ansageWeiss: 5297
+  M1Farbe1: 5287
+  Anleitung: 5316
+  _p0: 5311
+  zweiteFarbe: 5294
+  blau: 2666
+  braun: 2667
+  Wiederholeweiss: 5318
+  setzeRegister1: 5309
+  pruefeersteFarbeWeiss: 5303
+  pruefeersteFarbeSchwarz: 5302
+  dritteFarbe: 5296
+  gruen: 2664
+  vierteFarbe: 5300
+  schwarz: 2047
+  setzeRegister2: 5310
+  abbrechen: 5314
+  Codeabspielen: 5315
+  CodeabspielenPos4: 5313
+  Spielende: 5317
+  pruefevierteFarbeWeiss: 5299
+  ansageSchwarz: 5293
