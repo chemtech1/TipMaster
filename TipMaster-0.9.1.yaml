@@ -216,8 +216,8 @@ scripts:
  neueRunde:
  - $p==1?
  - $Runde == $maxRunden? J(Spielende) P(Spielende) 
- - $Runde==8? $Runde+=1 J(setzeRegister1) P(noch_zwei_Runden)
- - $Runde==9? $Runde+=1 J(setzeRegister1) P(letzte_Runde)
+ - $Runde==7? $Runde+=1 J(setzeRegister1) P(noch_zwei_Runden)
+ - $Runde==8? $Runde+=1 J(setzeRegister1) P(letzte_Runde)
  - $Runde+=1 J(setzeRegister1) P(nächste_Runde) 
  
  
