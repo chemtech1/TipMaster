@@ -1,9 +1,9 @@
 # TipMaster
 
-Es handelt sich hier um ein Spiel für den TipToi Stift. Dieses Spiel richtet sich an die etwas älteren TipToi Benutzer. 
-Das Spiel ist eine Übertragung des Klassikers MasterMind auf den TipToi Stift. Der Stift denkt sich eine Farbkombination aus, und der Spieler muss diese dann erraten.
-Die Stimme für das Spiel habe ich mithilfe von TTS erstellt.
-Ich Stelle alle Dateien für dieses Spiel zur Verfügung. Eine Druckvorlage habe ich mit Gimp ertsellt. Du findest unter Druckvorlagen  auch PDF Vorlagen. Ich habe die OID's mit Stärke 3 erstellt, dies funktioniert bei meinem Drucker ziemlich gut. 
+Es handelt sich hier um ein Spiel für den TipToi Stift. 
+Das Spiel ist eine Übertragung des Klassikers MasterMind auf den TipToi Stift. Das Spiel funktioniert so, dass der TipToi Stift sich eine Farbkombination ausdenkt, und der Spieler diese dann erraten muss. Die Altersangabe des Originals wir ab 8 Jahre angegeben, somit richtet sich dieses Spiel eher an die etwas älteren TipToi Benutzer. (Elertn ? :-))
+
+Ich Stelle alle Dateien für dieses Spiel zur Verfügung. Eine Druckvorlage habe ich mit Gimp ertsellt. Du findest unter Druckvorlagen  auch PDF Vorlagen. Ich habe die OID's mit Stärke 3 erstellt, dies funktioniert bei meinem Drucker ziemlich gut. Die Audiodateien für das Spiel habe ich mithilfe von TTS erstellt. Ein Transcript aller Ansagen habe ich 
 
 Hier die genauere Anleitung:
 
