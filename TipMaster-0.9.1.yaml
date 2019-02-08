@@ -153,28 +153,27 @@ scripts:
  
  
  pruefeersteFarbeSchwarz:
- - $Treffer1!=1? $Farbe1==$Pos1?  $Treffer1:=1 $schwarz+=1  J(pruefezweiteFarbeSchwarz) P(nichts)
+ - $Farbe1==$Pos1?  $Treffer1:=1 $Farbe1:=0 $schwarz+=1  J(pruefezweiteFarbeSchwarz) P(nichts)
  - J(pruefezweiteFarbeSchwarz) P(nichts)
  
  
 
  pruefezweiteFarbeSchwarz:
  
- - $Treffer2!=1? $Farbe2==$Pos2? $Treffer2:=1 $schwarz+=1 J(pruefedritteFarbeSchwarz) P(nichts)
+ - $Farbe2==$Pos2? $Treffer2:=1 $Farbe2:=0 $schwarz+=1 J(pruefedritteFarbeSchwarz) P(nichts)
  - J(pruefedritteFarbeSchwarz) P(nichts)
  
  pruefedritteFarbeSchwarz:
  
- - $Treffer3!=1? $Farbe3==$Pos3? $Treffer3:=1 $schwarz+=1 J(pruefevierteFarbeSchwarz) P(nichts)
+ - $Farbe3==$Pos3? $Treffer3:=1 $Farbe3:=0 $schwarz+=1 J(pruefevierteFarbeSchwarz) P(nichts)
  - J(pruefevierteFarbeSchwarz) P(nichts)
  
  
- 
- 
  pruefevierteFarbeSchwarz:
- - $Treffer4!=1? $Farbe4==$Pos4? $Treffer4:=1 $schwarz+=1 J(pruefeersteFarbeWeiss) P(nichts)
+ - $Farbe4==$Pos4? $Treffer4:=1 $Farbe4:=0 $schwarz+=1 J(pruefeersteFarbeWeiss) P(nichts)
  - J(pruefeersteFarbeWeiss) P(nichts)
 
+ 
  pruefeersteFarbeWeiss:
  - $Treffer2!=1? $Farbe1==$Pos2? $Treffer2:=1 $weiss+=1 J(pruefezweiteFarbeWeiss) P(nichts)
  - $Treffer3!=1? $Farbe1==$Pos3? $Treffer3:=1 $weiss+=1 J(pruefezweiteFarbeWeiss) P(nichts)
